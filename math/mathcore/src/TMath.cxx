@@ -3149,6 +3149,51 @@ Double_t TMath::VavilovDenEval(Double_t rlam, Double_t *AC, Double_t *HC, Int_t 
 }
 
 
+///////////////////////////////////////////////////////////////////////////////
+/// Dung Phan's custom utilities
+/// brianp.dung@utexas.edu
+///
+/// \param nbinx Number of bins. The bin edges are equal in the log scale, not in linear scale
+/// \param xmin  Minimum value of x (lowest edge)
+/// \param xmax  Maximum value of x (highest edge)
+/// \return      A vector of bin edges, to get the array for TH1 histograms, use the vector.data()
+///              function.
+///              The BinEdgeMix returns a mix set of bin edges with lower part using log scale,
+///              and the upper part using linear scale, the xlog2lin parameter specifies the border
+///              between the two parts
+
+// Bin edge vector (getting the array with a.data())
+std::vector<Double_t> TMath::BinEdgeLog(Int_t nbinx, Double_t xmin, Double_t xmax) {
+   std::vector<Double_t> edges;
+
+   if (xmin <= 0. || xmax <= 0.) return edges;
+   if (xmax <= xmin) return edges;
+
+   Double_t step_log = (TMath::Log10(xmax) - TMath::Log10(xmin)) / nbinx;
+   Double_t xmin_log = TMath::Log10(xmin);
+   for (Int_t i = 0; i <= nbinx; i++) {
+      Double_t edge_log = xmin_log + i * step_log;
+      edges.push_back(TMath::Power(10, edge_log));
+   }
+
+   return edges;
+}
+
+std::vector<Double_t> TMath::BinEdgeMix(Int_t nbinx_log, Int_t nbinx_lin, Double_t xmin, Double_t xlog2lin, Double_t xmax) {
+   std::vector<Double_t> edges;
+   if (xmax < xlog2lin) return edges;
+
+   edges = TMath::BinEdgeLog(nbinx_log, xmin, xlog2lin);
+
+   double step = (xmax - xlog2lin) / nbinx_lin;
+   for (int i = 1; i <= nbinx_lin; i++) {
+      edges.push_back(xlog2lin + i * step);
+   }
+
+   return edges;
+}
+
+
 //explicitly instantiate template functions from VecCore
 #ifdef R__HAS_VECCORE
 #include <Math/Types.h>

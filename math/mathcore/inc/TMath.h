@@ -571,7 +571,11 @@ struct Limits {
    Double_t Gamma(Double_t a,Double_t x);
    Double_t GammaDist(Double_t x, Double_t gamma, Double_t mu=0, Double_t beta=1);
    Double_t LnGamma(Double_t z);
-}
+
+   // Make bin edge array
+   std::vector<Double_t> BinEdgeLog(Int_t nbinx, Double_t xmin, Double_t xmax);
+   std::vector<Double_t> BinEdgeMix(Int_t nbinx_log, Int_t nbinx_lin, Double_t xmin, Double_t xlog2lin, Double_t xmax);
+   }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Trig and other functions

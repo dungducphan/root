@@ -155,7 +155,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 #---Enable Folders in IDE like Visual Studio----------------------------------------------------
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-#---Load some basic macros which are needed later for the confiuration and build----------------
+#---Load some basic macros which are needed later for the configuration and build----------------
 include(SearchRootCoreDeps)
 include(CheckCompiler)
 include(RootBuildOptions)
