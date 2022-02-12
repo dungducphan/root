@@ -118,7 +118,6 @@ ROOT_STANDARD_LIBRARY_PACKAGE(RooFitCore
     RooGenFunction.h
     RooGenProdProj.h
     RooGlobalFunc.h
-    RooGradMinimizerFcn.h
     RooGrid.h
     RooHistError.h
     RooHistFunc.h
@@ -239,11 +238,8 @@ ROOT_STANDARD_LIBRARY_PACKAGE(RooFitCore
     RooFitLegacy/RooNameSet.h
     RooFitLegacy/RooSetPair.h
     RooFitLegacy/RooTreeData.h
-    RooFit/TestStatistics/ConstantTermsOptimizer.h
     RooFit/TestStatistics/LikelihoodGradientWrapper.h
     RooFit/TestStatistics/LikelihoodWrapper.h
-    RooFit/TestStatistics/LikelihoodSerial.h
-    RooFit/TestStatistics/MinuitFcnGrad.h
     RooFit/TestStatistics/RooAbsL.h
     RooFit/TestStatistics/RooBinnedL.h
     RooFit/TestStatistics/RooSubsidiaryL.h
@@ -505,7 +501,6 @@ ROOT_STANDARD_LIBRARY_PACKAGE(RooFitCore
 
 if (roofit_multiprocess)
   target_link_libraries(RooFitCore PRIVATE RooFitMultiProcess)
-  target_compile_definitions(RooFitCore PRIVATE -DBUILD_WITH_ROOFIT_MULTIPROCESS)
   set(RooFitCore_MultiProcess_TestStatistics_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/res")
   target_include_directories(RooFitCore PRIVATE ${RooFitCore_MultiProcess_TestStatistics_INCLUDE_DIR})
 endif()
